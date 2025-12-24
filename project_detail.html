@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ project.name }}</title>
+</head>
+<body>
+
+<h1>{{ project.name }}</h1>
+
+<a href="/">⬅ Back</a> |
+<a href="/project/{{ project.id }}/edit/">✏️ Edit Project</a> |
+<a href="/project/{{ project.id }}/delete/"
+   onclick="return confirm('Delete project?')">🗑 Delete</a>
+
+<hr>
+
+<h2>Add Sources</h2>
+<a href="/project/{{ project.id }}/add-text/">➕ Text Source</a> |
+<a href="/project/{{ project.id }}/add-audio/">🎧 Audio Source</a>
+
+<form method="post" action="/project/{{ project.id }}/web-search/">
+    {% csrf_token %}
+    <input type="text" name="query" placeholder="Web search query" required>
+    <button type="submit">🌐 Search</button>
+</form>
+
+<hr>
+
+<h2>Sources</h2>
+
+{% if project.source_set.all %}
+    {% for source in project.source_set.all %}
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+            <strong>{{ source.title }}</strong>
+            <em>({{ source.source_type }})</em>
+
+            <p>{{ source.text|linebreaks }}</p>
+
+            <a href="/source/{{ source.id }}/edit/">✏️ Edit</a> |
+            <a href="/source/{{ source.id }}/delete/"
+               onclick="return confirm('Delete source?')">🗑 Delete</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No sources yet.</p>
+{% endif %}
+
+<hr>
+
+<h2>Chat with your sources</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="question" placeholder="Ask a question..." required>
+    <button type="submit">Ask</button>
+</form>
+
+{% if answer %}
+    <h3>Answer:</h3>
+    <p>{{ answer|linebreaks }}</p>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projects</title>
+</head>
+<body>
+
+<h1>AI Writer – Projects</h1>
+
+<a href="/create/">➕ Create New Project</a>
+<hr>
+
+{% if projects %}
+    <ul>
+    {% for project in projects %}
+        <li>
+            <a href="/project/{{ project.id }}/">
+                {{ project.name }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No projects yet.</p>
+{% endif %}
+
+</body>
+</html>

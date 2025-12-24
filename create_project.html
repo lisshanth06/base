@@ -1,0 +1,14 @@
+{% extends "writer/base.html" %}
+
+{% block content %}
+<div class="card" style="max-width:500px;">
+    <h2>Create Project</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Project name" required>
+        <br><br>
+        <button>Create</button>
+    </form>
+</div>
+{% endblock %}

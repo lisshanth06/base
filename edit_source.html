@@ -1,0 +1,28 @@
+{% extends "writer/base.html" %}
+
+{% block content %}
+<h2>Edit Source</h2>
+
+<form hx-post="/source/{{ source.id }}/edit/" 
+      hx-target="#content" 
+      hx-push-url="/project/{{ source.project.id }}/">
+    {% csrf_token %}
+
+    <input type="text" name="title" value="{{ source.title }}" required>
+    <br><br>
+
+    <textarea name="text" rows="10" cols="60">{{ source.text }}</textarea>
+    <br><br>
+
+    <button type="submit">
+        Save
+        <span class="htmx-indicator">...</span>
+    </button>
+</form>
+
+<br>
+<a href="/project/{{ source.project.id }}/" 
+   hx-get="/project/{{ source.project.id }}/" 
+   hx-target="#content" 
+   hx-push-url="true">⬅ Back</a>
+{% endblock %}

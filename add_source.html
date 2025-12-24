@@ -1,0 +1,28 @@
+{% extends "writer/base.html" %}
+{% block content %}
+
+<div class="max-w-xl glass p-6 rounded-xl mx-auto">
+<h2 class="text-xl mb-4">Add {{ type|title }} Source</h2>
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input name="title" class="w-full p-2 rounded-xl bg-black/30 mb-3"
+       placeholder="Source title" required />
+
+{% if type == "text" %}
+<textarea name="text" rows="8"
+  class="w-full p-3 rounded-xl bg-black/30"
+  placeholder="Paste text..."></textarea>
+{% else %}
+<input type="file" name="file" accept="audio/*" required />
+{% endif %}
+
+<button class="mt-4 px-4 py-2 rounded-xl bg-indigo-500 glow">
+Save
+</button>
+
+</form>
+</div>
+
+{% endblock %}
